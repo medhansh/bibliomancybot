@@ -147,7 +147,7 @@ app.post('/ai', (req, res) => {
 	        	//console.log('Inside goodreadsfetch : ', json);
 	        	//console.log('json = ', json.Similar.Results[0]);
 	        	let imgurl1 = "";
-	        	let restUrl2 = 'https://www.goodreads.com/search/index.xml?key=ebZOU4Nm4gLQ6ZZ6Fa3A&q='+json.Similar.Results[1].Name;
+	        	let restUrl2 = 'https://www.goodreads.com/search/index.xml?key=ebZOU4Nm4gLQ6ZZ6Fa3A&q='+json.title1;
 	    		request.get(restUrl2, (err2, response2, body2) => {
 	     			if (!err2 && response2.statusCode == 200) {
 	        
@@ -156,7 +156,7 @@ app.post('/ai', (req, res) => {
 						parseString(xml, function (err4, result4) {
     						//console.dir(result);
     						//console.log(util.inspect(result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url, false, null));
-    						imgurl = util.inspect(result4.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url, false, null);
+    						imgurl1 = util.inspect(result4.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url, false, null);
 			        		//console.log(imgurl);
     					});
 
@@ -169,13 +169,13 @@ app.post('/ai', (req, res) => {
 							console.log(imgurl);
 
 							var retobj = {
-				    			title:json.Similar.Results[0].Name,
-				    			desc:json.Similar.Results[0].wTeaser,
-				    			wurl:json.Similar.Results[0].wUrl,
+				    			title:json.title,
+				    			desc:json.desc,
+				    			wurl:json.wurl,
 				    			imageurl:imgurl,
-				    			title1:json.Similar.Results[1].Name,
-				    			desc1:json.Similar.Results[1].wTeaser,
-				    			wurl1:json.Similar.Results[1].wUrl,
+				    			title1:json.title1,
+				    			desc1:json.desc1,
+				    			wurl1:json.wurl1,
 				    			imageurl1:imgurl1,
 							};     			
 
