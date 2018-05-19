@@ -33,7 +33,7 @@ app.post('/ai', (req, res) => {
 
     // console.log(req.body);
     // console.log(req.body.queryResult.intent.displayName);
-    
+    console.log("in ai branch");
     if (req.body.queryResult.intent.displayName === 'book.recommend') {
 
     	
