@@ -84,12 +84,9 @@ app.post('/ai', (req, res) => {
 	        	//console.log('json = ', json.Similar.Results[0]);
 	        	let imgurl = "";
 	        	let grurl = "";
-	        	let amazurl = "";
 	        	let restUrl1 = 'https://www.goodreads.com/search/index.xml?key=ebZOU4Nm4gLQ6ZZ6Fa3A&q='+json.Similar.Results[0].Name;
 	        	var grbaseUrl = "https://www.goodreads.com/book/show/";
-	        	var amazbaseUrlpart1 = "https://www.goodreads.com/buy_buttons/14/follow?book_id=";
-	        	var amazbaseUrlpart2 = "&ref=x_gr_w_bb&tag=x_gr_w_bb-20";
-	    		request.get(restUrl1, (err1, response1, body1) => {
+	        	request.get(restUrl1, (err1, response1, body1) => {
 	     			if (!err1 && response1.statusCode == 200) {
 	        
 			       		var parseString = require('xml2js').parseString;
@@ -101,7 +98,6 @@ app.post('/ai', (req, res) => {
 			        		var teststr = util.inspect(result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id,false, null);
 			        		var newstr = teststr.match(/'([^']+)'/)[1];
 			        		grurl = grbaseUrl + newstr;
-			        		amazurl = amazbaseUrlpart1 + newstr + amazbaseUrlpart2;
 			        		//console.log(imgurl);
     					});
 
@@ -118,14 +114,12 @@ app.post('/ai', (req, res) => {
 				    			desc:json.Similar.Results[0].wTeaser,
 				    			wurl:json.Similar.Results[0].wUrl,
 				    			greadsurl: grurl,
-				    			amazonurl: amazurl,
 				    			imageurl:imgurl,
 				    			title1:json.Similar.Results[1].Name,
 				    			desc1:json.Similar.Results[1].wTeaser,
 				    			wurl1:json.Similar.Results[1].wUrl,
 				    			imageurl1:"",
-				    			greadsurl1:"",
-				    			amazonurl1:""
+				    			greadsurl1:""
 							};     			
 
      						//console.log(retobj);
@@ -161,11 +155,8 @@ app.post('/ai', (req, res) => {
 	        	//console.log('json = ', json.Similar.Results[0]);
 	        	let imgurl1 = "";
 	        	let grurl1 ="";
-	        	let amazurl1 ="";
 	        	let restUrl2 = 'https://www.goodreads.com/search/index.xml?key=ebZOU4Nm4gLQ6ZZ6Fa3A&q='+json.title1;
 	    		var grbaseUrl1 = "https://www.goodreads.com/book/show/";
-	    		var amazbaseUrlpart1 = "https://www.goodreads.com/buy_buttons/14/follow?book_id=";
-	        	var amazbaseUrlpart2 = "&ref=x_gr_w_bb&tag=x_gr_w_bb-20";
 	    		
 	    		request.get(restUrl2, (err2, response2, body2) => {
 	     			if (!err2 && response2.statusCode == 200) {
@@ -179,7 +170,6 @@ app.post('/ai', (req, res) => {
 			        		var teststr1 = util.inspect(result4.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id,false, null);
 			        		var newstr1 = teststr1.match(/'([^']+)'/)[1];
 			        		grurl1 = grbaseUrl1 + newstr1;
-			        		amazurl1 = amazbaseUrlpart1 + newstr1 + amazbaseUrlpart2;
 			        		console.log(grurl1);
     					});
 
@@ -197,13 +187,11 @@ app.post('/ai', (req, res) => {
 				    			wurl:json.wurl,
 				    			imageurl:json.imageurl,
 				    			greadsurl:json.greadsurl,
-				    			amazonurl:json.amazonurl,
 				    			title1:json.title1,
 				    			desc1:json.desc1,
 				    			wurl1:json.wurl1,
 				    			imageurl1:imgurl1,
-				    			greadsurl1: grurl1,
-				    			amazonurl1:amazurl1
+				    			greadsurl1: grurl1
 							};     			
 
      						//console.log(retobj);
@@ -264,12 +252,7 @@ app.post('/ai', (req, res) => {
 		          					{
 		            					"text": "Show Goodreads Details",
 		            					"postback": result3.greadsurl
-		          					},
-		          					,
-		          					{
-		            					"text": "Buy on Amazon",
-		            					"postback": result3.amazonurl
-		          					}
+		          					}		          					
 		        				]
 				            }
 
@@ -287,10 +270,6 @@ app.post('/ai', (req, res) => {
 		          					{
 		            					"text": "Show Goodreads Details",
 		            					"postback": result3.greadsurl1
-		          					},
-		          					{
-		            					"text": "Buy on Amazon",
-		            					"postback": result3.amazonurl1
 		          					}
 		        				]
 				            }
