@@ -83,6 +83,7 @@ app.post('/ai', (req, res) => {
 	        	//console.log('Inside goodreadsfetch : ', json);
 	        	//console.log('json = ', json.Similar.Results[0]);
 	        	let imgurl = "";
+	        	let grurl = "";
 	        	let restUrl1 = 'https://www.goodreads.com/search/index.xml?key=ebZOU4Nm4gLQ6ZZ6Fa3A&q='+json.Similar.Results[0].Name;
 	        	var grbaseUrl = "https://www.goodreads.com/book/show/";
 	    		request.get(restUrl1, (err1, response1, body1) => {
@@ -94,6 +95,7 @@ app.post('/ai', (req, res) => {
     						//console.dir(result);
     						//console.log(util.inspect(result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url, false, null));
     						imgurl = util.inspect(result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url, false, null);
+			        		grurl = grbaseUrl + util.inspect(result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id,false, null);
 			        		//console.log(imgurl);
     					});
 
@@ -109,13 +111,13 @@ app.post('/ai', (req, res) => {
 				    			title:json.Similar.Results[0].Name,
 				    			desc:json.Similar.Results[0].wTeaser,
 				    			wurl:json.Similar.Results[0].wUrl,
-				    			grurl: grbaseUrl + result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id,
+				    			greadsurl: grurl,
 				    			imageurl:imgurl,
 				    			title1:json.Similar.Results[1].Name,
 				    			desc1:json.Similar.Results[1].wTeaser,
 				    			wurl1:json.Similar.Results[1].wUrl,
 				    			imageurl1:"",
-				    			grurl1:""
+				    			greadsurl1:""
 							};     			
 
      						//console.log(retobj);
@@ -150,8 +152,9 @@ app.post('/ai', (req, res) => {
 	        	//console.log('Inside goodreadsfetch : ', json);
 	        	//console.log('json = ', json.Similar.Results[0]);
 	        	let imgurl1 = "";
+	        	let grurl1 ="";
 	        	let restUrl2 = 'https://www.goodreads.com/search/index.xml?key=ebZOU4Nm4gLQ6ZZ6Fa3A&q='+json.title1;
-	    		var grbaseUrl = "https://www.goodreads.com/book/show/";
+	    		var grbaseUrl1 = "https://www.goodreads.com/book/show/";
 	    		request.get(restUrl2, (err2, response2, body2) => {
 	     			if (!err2 && response2.statusCode == 200) {
 	        
@@ -161,6 +164,7 @@ app.post('/ai', (req, res) => {
     						//console.dir(result);
     						//console.log(util.inspect(result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url, false, null));
     						imgurl1 = util.inspect(result4.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url, false, null);
+			        		grurl1 = grbaseUrl1 + util.inspect(result4.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id,false, null);
 			        		//console.log(imgurl);
     					});
 
@@ -177,12 +181,12 @@ app.post('/ai', (req, res) => {
 				    			desc:json.desc,
 				    			wurl:json.wurl,
 				    			imageurl:json.imageurl,
-				    			grurl:json.grurl,
+				    			greadsurl:json.greadsurl,
 				    			title1:json.title1,
 				    			desc1:json.desc1,
 				    			wurl1:json.wurl1,
 				    			imageurl1:imgurl1,
-				    			grurl1: grbaseUrl + result4.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id,
+				    			greadsurl1: grurl1
 							};     			
 
      						//console.log(retobj);
@@ -242,7 +246,7 @@ app.post('/ai', (req, res) => {
 		          					},
 		          					{
 		            					"text": "Show Goodreads Details",
-		            					"postback": result3.grurl
+		            					"postback": result3.greadsurl
 		          					}
 		        				]
 				            }
@@ -260,7 +264,7 @@ app.post('/ai', (req, res) => {
 		          					},
 		          					{
 		            					"text": "Show Goodreads Details",
-		            					"postback": result3.grurl1
+		            					"postback": result3.greadsurl1
 		          					}
 		        				]
 				            }
