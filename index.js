@@ -203,7 +203,7 @@ app.post('/ai', (req, res) => {
 				    			wurl1:json.wurl1,
 				    			imageurl1:imgurl1,
 				    			greadsurl1: grurl1,
-				    			amazonurl1: amazonurl1
+				    			amazonurl1: amazurl1
 							};     			
 
      						//console.log(retobj);
