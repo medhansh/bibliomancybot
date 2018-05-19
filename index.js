@@ -172,7 +172,7 @@ app.post('/ai', (req, res) => {
 				    			title:json.title,
 				    			desc:json.desc,
 				    			wurl:json.wurl,
-				    			imageurl:imgurl,
+				    			imageurl:json.imageurl,
 				    			title1:json.title1,
 				    			desc1:json.desc1,
 				    			wurl1:json.wurl1,
