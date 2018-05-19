@@ -166,7 +166,7 @@ app.post('/ai', (req, res) => {
 						} 
 						else {
 							console.log('successful fetch from goodreads.');
-							console.log(imgurl);
+							console.log(imgurl1);
 
 							var retobj = {
 				    			title:json.title,
