@@ -109,7 +109,7 @@ app.post('/ai', (req, res) => {
 				    			title:json.Similar.Results[0].Name,
 				    			desc:json.Similar.Results[0].wTeaser,
 				    			wurl:json.Similar.Results[0].wUrl,
-				    			grurl:grbaseurl + result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id,
+				    			grurl: grbaseUrl + result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id,
 				    			imageurl:imgurl,
 				    			title1:json.Similar.Results[1].Name,
 				    			desc1:json.Similar.Results[1].wTeaser,
@@ -182,7 +182,7 @@ app.post('/ai', (req, res) => {
 				    			desc1:json.desc1,
 				    			wurl1:json.wurl1,
 				    			imageurl1:imgurl1,
-				    			grurl1:grbaseurl + result4.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id,
+				    			grurl1: grbaseUrl + result4.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id,
 							};     			
 
      						//console.log(retobj);
