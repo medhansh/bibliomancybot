@@ -239,7 +239,7 @@ app.post('/ai', (req, res) => {
 		          					{
 		            					"text": "Show Wikipedia Details",
 		            					"postback": result3.wurl
-		          					}
+		          					},
 		          					{
 		            					"text": "Show Goodreads Details",
 		            					"postback": result3.grurl
@@ -257,7 +257,7 @@ app.post('/ai', (req, res) => {
 		          					{
 		            					"text": "Show Wikipedia Details",
 		            					"postback": result3.wurl1
-		          					}
+		          					},
 		          					{
 		            					"text": "Show Goodreads Details",
 		            					"postback": result3.grurl1
