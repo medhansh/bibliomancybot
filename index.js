@@ -84,6 +84,7 @@ app.post('/ai', (req, res) => {
 	        	//console.log('json = ', json.Similar.Results[0]);
 	        	let imgurl = "";
 	        	let restUrl1 = 'https://www.goodreads.com/search/index.xml?key=ebZOU4Nm4gLQ6ZZ6Fa3A&q='+json.Similar.Results[0].Name;
+	        	var grbaseUrl = "https://www.goodreads.com/book/show/";
 	    		request.get(restUrl1, (err1, response1, body1) => {
 	     			if (!err1 && response1.statusCode == 200) {
 	        
@@ -108,11 +109,13 @@ app.post('/ai', (req, res) => {
 				    			title:json.Similar.Results[0].Name,
 				    			desc:json.Similar.Results[0].wTeaser,
 				    			wurl:json.Similar.Results[0].wUrl,
+				    			grurl:grbaseurl + result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id,
 				    			imageurl:imgurl,
 				    			title1:json.Similar.Results[1].Name,
 				    			desc1:json.Similar.Results[1].wTeaser,
 				    			wurl1:json.Similar.Results[1].wUrl,
 				    			imageurl1:"",
+				    			grurl1:""
 							};     			
 
      						//console.log(retobj);
@@ -148,6 +151,7 @@ app.post('/ai', (req, res) => {
 	        	//console.log('json = ', json.Similar.Results[0]);
 	        	let imgurl1 = "";
 	        	let restUrl2 = 'https://www.goodreads.com/search/index.xml?key=ebZOU4Nm4gLQ6ZZ6Fa3A&q='+json.title1;
+	    		var grbaseUrl = "https://www.goodreads.com/book/show/";
 	    		request.get(restUrl2, (err2, response2, body2) => {
 	     			if (!err2 && response2.statusCode == 200) {
 	        
@@ -173,10 +177,12 @@ app.post('/ai', (req, res) => {
 				    			desc:json.desc,
 				    			wurl:json.wurl,
 				    			imageurl:json.imageurl,
+				    			grurl:json.grurl,
 				    			title1:json.title1,
 				    			desc1:json.desc1,
 				    			wurl1:json.wurl1,
 				    			imageurl1:imgurl1,
+				    			grurl1:grbaseurl + result4.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id,
 							};     			
 
      						//console.log(retobj);
@@ -231,8 +237,12 @@ app.post('/ai', (req, res) => {
 				                "imageUri": newimgurl,
 				                "buttons": [
 		          					{
-		            					"text": "Show Details",
+		            					"text": "Show Wikipedia Details",
 		            					"postback": result3.wurl
+		          					}
+		          					{
+		            					"text": "Show Goodreads Details",
+		            					"postback": result3.grurl
 		          					}
 		        				]
 				            }
@@ -245,8 +255,12 @@ app.post('/ai', (req, res) => {
 				                "imageUri": newimgurl1,
 				                "buttons": [
 		          					{
-		            					"text": "Show Details",
+		            					"text": "Show Wikipedia Details",
 		            					"postback": result3.wurl1
+		          					}
+		          					{
+		            					"text": "Show Goodreads Details",
+		            					"postback": result3.grurl1
 		          					}
 		        				]
 				            }
