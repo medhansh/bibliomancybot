@@ -179,7 +179,7 @@ app.post('/ai', (req, res) => {
 			        		var teststr1 = util.inspect(result4.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id,false, null);
 			        		var newstr1 = teststr1.match(/'([^']+)'/)[1];
 			        		grurl1 = grbaseUrl1 + newstr1;
-			        		amazurl1 = amazbaseUrlpart1 + newstr + amazbaseUrlpart2;
+			        		amazurl1 = amazbaseUrlpart1 + newstr1 + amazbaseUrlpart2;
 			        		console.log(grurl1);
     					});
 
