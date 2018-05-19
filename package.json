@@ -21,7 +21,7 @@
     "url": "https://github.com/heroku/bibliomancybot"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node app.js",
     "test": "node test.js"
   },
   "author": "Medhansh Mehta",
