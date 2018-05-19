@@ -51,11 +51,11 @@ app.post('/ai', (req, res) => {
 			        	let finres = ' ';
 			       	    if (json.Similar.Results.length == 0) {
 							finres = 'I could not find books similar to ' + title + '. Please try with some other title';
-							reject("no such title");
+							reject("I could not find similar books. Please try with some other title");
 						} 
 						else {
-							console.log('inside else');  
-							console.log('Finished tastedivefetch. Going to resolve');
+							//console.log('inside else');  
+							//console.log('Finished tastedivefetch. Going to resolve');
      						resolve(json);
 							//finres = 'You might enjoy reading one of the following books';
 							//var messageData = { "title 1" : json.Similar.Results[0].Name, "title 2" : json.Similar.Results[1].Name };
@@ -80,10 +80,10 @@ app.post('/ai', (req, res) => {
 
  	    let goodreadsfetch = function(json) {
 		    return new Promise(function(resolve, reject) {
-	        	console.log('Inside goodreadsfetch : ', json);
-	        	console.log('json = ', json.Similar.Results[0]);
+	        	//console.log('Inside goodreadsfetch : ', json);
+	        	//console.log('json = ', json.Similar.Results[0]);
 	        	let imgurl = "";
-	    		let restUrl1 = 'https://www.goodreads.com/search/index.xml?key=ebZOU4Nm4gLQ6ZZ6Fa3A&q='+json.Similar.Results[0].Name;
+	        	let restUrl1 = 'https://www.goodreads.com/search/index.xml?key=ebZOU4Nm4gLQ6ZZ6Fa3A&q='+json.Similar.Results[0].Name;
 	    		request.get(restUrl1, (err1, response1, body1) => {
 	     			if (!err1 && response1.statusCode == 200) {
 	        
@@ -91,9 +91,9 @@ app.post('/ai', (req, res) => {
 						var xml = body1;
 						parseString(xml, function (err2, result2) {
     						//console.dir(result);
-    						console.log(util.inspect(result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url, false, null));
+    						//console.log(util.inspect(result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url, false, null));
     						imgurl = util.inspect(result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url, false, null);
-			        		console.log(imgurl);
+			        		//console.log(imgurl);
     					});
 
 
@@ -108,10 +108,78 @@ app.post('/ai', (req, res) => {
 				    			title:json.Similar.Results[0].Name,
 				    			desc:json.Similar.Results[0].wTeaser,
 				    			wurl:json.Similar.Results[0].wUrl,
-				    			imageurl:imgurl
+				    			imageurl:imgurl,
+				    			title1:json.Similar.Results[1].Name,
+				    			desc1:json.Similar.Results[1].wTeaser,
+				    			wurl1:json.Similar.Results[1].wUrl,
+				    			imageurl1:"",
 							};     			
 
-     						console.log(retobj);
+     						//console.log(retobj);
+
+     						resolve(retobj);  
+							//finres = 'You might enjoy reading one of the following books';
+							//var messageData = { "title 1" : json.Similar.Results[0].Name, "title 2" : json.Similar.Results[1].Name };
+							//messageData1 = "Title 1: " + json.Similar.Results[0].Name + ":" + json.Similar.Results[0].wTeaser;
+							//messageData2 = "Title 2: " + json.Similar.Results[1].Name + ":" + json.Similar.Results[1].wTeaser;
+							//var messageData = {"title" : json.Similar.Results[0].Name, "description" : json.Similar.Results[0].wTeaser}
+							//mdata = JSON.stringify(messageData);
+							//var lowercasetitle = json.Similar.Results[0].Name.toLowerCase();
+							//console.log('lowercasetitle = ', lowercasetitle);	
+							//var replacedtitle = lowercasetitle.split(' ').join('_');
+							//console.log('replacedtitle = ', replacedtitle);
+						}							
+					}
+     			});
+
+	    		
+  			}).catch((err) => {
+  				// Handle any error that occurred in any of the previous
+  				// promises in the chain.
+  				console.log(err);
+			});
+		};
+
+		// fetching the image url for the second recommended book title
+
+		let goodreadsfetch1 = function(json) {
+		    return new Promise(function(resolve, reject) {
+	        	//console.log('Inside goodreadsfetch : ', json);
+	        	//console.log('json = ', json.Similar.Results[0]);
+	        	let imgurl1 = "";
+	        	let restUrl2 = 'https://www.goodreads.com/search/index.xml?key=ebZOU4Nm4gLQ6ZZ6Fa3A&q='+json.Similar.Results[1].Name;
+	    		request.get(restUrl2, (err2, response2, body2) => {
+	     			if (!err2 && response2.statusCode == 200) {
+	        
+			       		var parseString = require('xml2js').parseString;
+						var xml = body2;
+						parseString(xml, function (err4, result4) {
+    						//console.dir(result);
+    						//console.log(util.inspect(result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url, false, null));
+    						imgurl = util.inspect(result4.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url, false, null);
+			        		//console.log(imgurl);
+    					});
+
+
+			       		if (body2.length == 0) {
+							//finres = 'I could not find books similar to ' + title + '. Please try with some other title';
+						} 
+						else {
+							console.log('successful fetch from goodreads.');
+							console.log(imgurl);
+
+							var retobj = {
+				    			title:json.Similar.Results[0].Name,
+				    			desc:json.Similar.Results[0].wTeaser,
+				    			wurl:json.Similar.Results[0].wUrl,
+				    			imageurl:imgurl,
+				    			title1:json.Similar.Results[1].Name,
+				    			desc1:json.Similar.Results[1].wTeaser,
+				    			wurl1:json.Similar.Results[1].wUrl,
+				    			imageurl1:imgurl1,
+							};     			
+
+     						//console.log(retobj);
 
      						resolve(retobj);  
 							//finres = 'You might enjoy reading one of the following books';
@@ -137,14 +205,21 @@ app.post('/ai', (req, res) => {
 		};
 
 
+
+
+
 		tastedivefetch().then(function(result3){
 			return goodreadsfetch(result3);
 		}).then(function(result3){
+			return goodreadsfetch1(result3);
+		}).then(function(result3){	
 			console.log('finished ' + result3);
 					//let responseObj = {"booktitle" : json.Similar.Results[0].Name};
 
 			let newimgurl = result3.imageurl.substr(3,result3.imageurl.length-6);
 			console.log(newimgurl);
+			let newimgurl1 = result3.imageurl1.substr(3,result3.imageurl1.length-6);
+			console.log(newimgurl1);
 
 			let responseObj={
 				     "fulfillmentText": "You may be interested in one of the following books"
@@ -165,13 +240,13 @@ app.post('/ai', (req, res) => {
 				        },
 				        {
 				            "card": {
-				                "title": result3.title,
-				                "subtitle" : result3.desc,
-				                "imageUri": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
+				                "title": result3.title1,
+				                "subtitle" : result3.desc1,
+				                "imageUri": newimgurl1,
 				                "buttons": [
 		          					{
 		            					"text": "Show Details",
-		            					"postback": result3.wurl
+		            					"postback": result3.wurl1
 		          					}
 		        				]
 				            }
@@ -181,7 +256,7 @@ app.post('/ai', (req, res) => {
 				    ,"source":""
 				}
 
-	   		console.log(JSON.stringify(responseObj));
+	   		//console.log(JSON.stringify(responseObj));
 	   		//res.json({ 'fulfillmentText': finres, 'fulfillmentMessages' : JSON.stringify(responseObj) });
 		   	return res.json(responseObj);
 		})
