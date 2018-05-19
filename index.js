@@ -165,7 +165,7 @@ app.post('/ai', (req, res) => {
     						//console.log(util.inspect(result2.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url, false, null));
     						imgurl1 = util.inspect(result4.GoodreadsResponse.search[0].results[0].work[0].best_book[0].image_url, false, null);
 			        		grurl1 = grbaseUrl1 + util.inspect(result4.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id,false, null);
-			        		//console.log(imgurl);
+			        		console.log(grurl1);
     					});
 
 
