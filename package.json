@@ -11,9 +11,18 @@
     "request": "^2.85.0",
     "xml2js": "^0.4.19"
   },
+  "devDependencies": {
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroku/bibliomancybot"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-    },
+    "start": "node index.js",
+    "test": "node test.js"
+  },
   "author": "Medhansh Mehta",
   "license": "ISC"
 }
