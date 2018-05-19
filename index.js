@@ -1,6 +1,7 @@
 const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
+const cool = require('cool-ascii-faces')
 var ejs = require("ejs");
 var util = require('util');
 const app = express();
@@ -21,6 +22,10 @@ const server = app.listen(process.env.PORT || 5000, () => {
 
 app.get('/', function (req, res) {
   res.render('pages/chatbot.ejs')
+})
+
+app.get('/cool', function (req, res) {
+  res.send(cool());
 })
 
 
